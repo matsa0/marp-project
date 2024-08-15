@@ -48,7 +48,7 @@ public class TestConfig implements CommandLineRunner {
         System.out.println("Running tests...");
 
         User u1 = new User(null, "Matheus", "matheus@gmail.com", "senha123", null);
-        
+
         List<Center> centers = new ArrayList<>();
         Center c1 =  new Center(null, "Primeiro andar", "central1", CentralStatus.ARMED, u1, new ArrayList<>(), new ArrayList<>(), null);
         centers.add(c1);
