@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Mainscreen from './pages/Mainscreen';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
           }/>
           <Route path="/register" element={
             <Register />
+          }/>
+          <Route path="/mainscreen" element={
+            <Mainscreen />
           }/>
         </Routes>
       </Router>

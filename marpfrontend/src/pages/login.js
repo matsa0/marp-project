@@ -62,25 +62,29 @@ export default function Login() {
     }
 
     return (
-    <div class="flex items-center justify-center min-h-screen bg-background">
-        <div class="bg-white dark:bg-card rounded-lg shadow-lg p-6 w-96">
+        
+    <div class="flex items-center justify-center min-h-screen bg-black">
+        
+        <div class="bg-black dark:bg-card rounded-lg shadow-lg p-16 w-full max-w-lg border border-gray-500">
         <div class="flex items-center justify-center mb-4">
+        <div class="w-12 h-12 bg-white flex items-center justify-center rounded-full">
             <img
             aria-hidden="true"
             alt="user-icon"
-            src="https://openui.fly.dev/openui/24x24.svg?text=👤"
-            class="w-12 h-12 rounded-full bg-red-500"
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWZpbmdlcnByaW50Ij48cGF0aCBkPSJNMTIgMTBhMiAyIDAgMCAwLTIgMmMwIDEuMDItLjEgMi41MS0uMjYgNCIvPjxwYXRoIGQ9Ik0xNCAxMy4xMmMwIDIuMzggMCA2LjM4LTEgOC44OCIvPjxwYXRoIGQ9Ik0xNy4yOSAyMS4wMmMuMTItLjYuNDMtMi4zLjUtMy4wMiIvPjxwYXRoIGQ9Ik0yIDEyYTEwIDEwIDAgMCAxIDE4LTYiLz48cGF0aCBkPSJNMiAxNmguMDEiLz48cGF0aCBkPSJNMjEuOCAxNmMuMi0yIC4xMzEtNS4zNTQgMC02Ii8+PHBhdGggZD0iTTUgMTkuNUM1LjUgMTggNiAxNSA2IDEyYTYgNiAwIDAgMSAuMzQtMiIvPjxwYXRoIGQ9Ik04LjY1IDIyYy4yMS0uNjYuNDUtMS4zMi41Ny0yIi8+PHBhdGggZD0iTTkgNi44YTYgNiAwIDAgMSA5IDUuMnYyIi8+PC9zdmc+"
+            class="w-9 h-9"
             />
+            </div>
         </div>
         <form onSubmit={(e) => onSubmit(e)}>
             <div class="mb-4">
-            <label for="email" class="block text-sm font-medium text-zinc-700">
+            <label for="email" class="block text-sm font-medium text-white">
                 Email
             </label>
             <input
                 type="email"
                 id="email"
-                class="mt-1 block w-full border border-red-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-red-300"
+                class="mt-1 block w-full border border-gray-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-gray-500"
                 placeholder="Digite seu email"
                 onChange={(e) => onEmailChange(e)}
                 value={email}
@@ -90,14 +94,14 @@ export default function Login() {
             <div class="mb-4">
             <label
                 for="password"
-                class="block text-sm font-medium text-zinc-700"
+                class="block text-sm font-medium text-white"
             >
                 Senha
             </label>
             <input
                 type="password"
                 id="password"
-                class="mt-1 block w-full border border-red-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-red-300"
+                class="mt-1 block w-full border border-gray-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-gray-500"
                 placeholder="Digite sua senha"
                 onChange={(e) => onPasswordChange(e)}
                 value={password}
@@ -106,19 +110,19 @@ export default function Login() {
             </div>
             <div class="flex items-center mb-4">
             <input type="checkbox" id="remember" class="mr-2" />
-            <label for="remember" class="text-sm text-zinc-700">
+            <label for="remember" class="text-sm font-medium text-white">
                 Manter-me Logado
             </label>
             </div>
             <button
             type="submit"
-            class="w-full bg-red-500 text-white p-2 rounded-md shadow-inner hover:bg-red-600"
+            class="w-full bg-white text-black p-2 rounded-md hover:bg-gray-200"
             >
             Entrar
             </button>
         </form>
-        <label for="remember" class="text-sm text-zinc-700">
-            Não possui cadastro? <Link to={'/register'}>Cadastre-se.</Link>
+        <label for="remember" class="text-sm font-medium text-white">
+        <Link to={'/mainscreen'}>Entrar.</Link> <Link to={'/register'}>Cadastre-se.</Link>
         </label>
         </div>
     </div>
