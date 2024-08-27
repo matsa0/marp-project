@@ -1,14 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { ShieldCheck, Calendar, LogOut, LayoutGrid, Trash } from 'lucide-react';
 import { useState } from "react";
 import '../App.css';
+import axios from 'axios';
 
 export default function Mainscreen() {
 
+    const[user, setUser] = useState(null);
+
+    useEffect(() => {
+        const userLogged = localStorage.getItem("userLogged")
+
+        if(userLogged) {
+            const userLoggedObj = JSON.parse(userLogged)
+            setUser(userLoggedObj)
+       
+            loadCenters(userLoggedObj.id)
+        }
+    }, []) //dependecy list
+
+    const loadCenters = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/v1/user/${id}`)
+
+            if(response.status === 200) {
+                let user = response.data
+                console.log("Response Data: ", user)
+                setUser(user)
+            }
+            else {
+                console.log("Status error: ", response.status)
+            }
+        }
+        catch(error) {
+            console.log("Get Centers Error: ", error)
+        }
+    }
 
     return (
-        <body class="bg-black text-white">
+        <div class="bg-black text-white">
             <div class="flex min-h-screen">
 
                 <aside class="w-96 bg-neutral-950 p-12 flex flex-col gap-8">
@@ -35,21 +66,16 @@ export default function Mainscreen() {
                             </span>
                         </div>
                         <ul class="flex flex-col gap-2 px-5 max-h-48 overflow-y-auto custom-scrollbar">
-                            <li>
-                                <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Garagem</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Depósito</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Arsenal de Combate</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Teste1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Teste2</a>
-                            </li>
+                            {user?.centers?.map((center) => (
+                                <li key={center.id}>
+                                    <a 
+                                    href="#" 
+                                    class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded"
+                                    >   
+                                        {center.name}
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </nav>
 
@@ -85,10 +111,12 @@ export default function Mainscreen() {
                 <main class="flex-1 p-8">
                     <header class="flex justify-between items-center mb-8">
                         <h1 class="text-3xl font-medium ">Centrais</h1>
-                        <button class="bg-white text-black px-6 py-4 rounded-lg flex items-center gap-3 mt-3">
-                            <LayoutGrid />
-                            <span className="text-lg font-medium">Nova Central</span>
-                        </button>
+                        <Link to={"/addCenter"}>
+                            <button class="bg-white text-black px-6 py-4 rounded-lg flex items-center gap-3 mt-3">
+                                <LayoutGrid />
+                                <span className="text-lg font-medium">Nova Central</span>
+                            </button>
+                        </Link>
                     </header>
 
                     <div class="mb-8">
@@ -131,6 +159,6 @@ export default function Mainscreen() {
                     </div>
                 </main>
             </div>
-        </body>
+        </div>
     );
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.marp.model.enums.CentralStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -90,6 +91,7 @@ public class Center implements Serializable {
     public void setStatus(CentralStatus status) {
         this.status = status;
     }
+    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -102,6 +104,7 @@ public class Center implements Serializable {
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
     }
+    @JsonIgnore
     public List<Event> getEvents() {
         return events;
     }

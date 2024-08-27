@@ -18,21 +18,17 @@ export default function Login() {
     }
 
     const isValidLogin = (users) => {
-        let valid = false
-
         for(let user of users) {
             if(email === user.email && password === user.password) {
-                valid = true
-                break;
+                return user;
             }
             if(email === user.email && password !== user.password) {
                 console.log("Incorrect Password! Try again.")
                 alert("Incorrect Password! Try again.")
-                break;
+                return null;
             }
-
         }
-        return valid
+        return null;
     }
 
     const onSubmit = async (e) => {
@@ -43,16 +39,18 @@ export default function Login() {
 
             if(response.status === 200) {
                 const users = response.data
-                const isValid = isValidLogin(users)
+                const userLogged = isValidLogin(users)
 
-                if(isValid === true) {
+                if(userLogged) {
                     console.log("Succesful Login!")
                     alert("Successful Login!")
+
+                    localStorage.setItem("userLogged", JSON.stringify(userLogged)) //stores the object userLogged converted into string in localStorage
+
                     navigate("/homepage")
                 }
                 else {
                     alert("User doesnt exist! Create a account.")
-                    console.log(isValid)
                 }
             }
         }
@@ -121,8 +119,8 @@ export default function Login() {
             </button>
         </form>
         <label for="remember" class="text-sm font-medium text-white">
-        <Link to={'/homepage'}>Entrar.</Link> 
-        <Link to={'/register'}>Cadastre-se.</Link>
+            <Link to={'/homepage'}>Entrar.</Link> 
+            <Link to={'/register'}>Cadastre-se.</Link>
         </label>
         </div>
     </div>
