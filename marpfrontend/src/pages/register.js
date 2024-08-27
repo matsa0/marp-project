@@ -1,81 +1,81 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import axios from 'axios'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Register() {
-  const[name, setName] = useState("")
-  const[email, setEmail] = useState("")
-  const[password, setPassword] = useState("")
-  
-  const navigate = useNavigate()
-  
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
   const onNameChange = (e) => {
-    setName(e.target.value)
-  }
+    setName(e.target.value);
+  };
   const onPasswordChange = (e) => {
-    setPassword(e.target.value)
-  }
+    setPassword(e.target.value);
+  };
   const onEmailChange = (e) => {
-    setEmail(e.target.value)
-  }
+    setEmail(e.target.value);
+  };
 
   const registerInfos = {
     name: name,
     email: email,
-    password: password
-  }
+    password: password,
+  };
 
   const postRegisterInfos = async (e) => {
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/user", registerInfos)
-      if(response === 201) {
-        console.log("POST SUCCESSFUL")
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/user",
+        registerInfos
+      );
+      if (response === 201) {
+        console.log("POST SUCCESSFUL");
+      } else {
+        console.log(response.status);
       }
-      else {
-        console.log(response.status)
-      }
+    } catch (error) {
+      console.log("POST ERROR: ", error);
     }
-    catch(error) {
-      console.log("POST ERROR: ", error)
-    }
-  }
+  };
 
   const isValidRegister = (users) => {
-    let isValid = true
+    let isValid = true;
 
-    for(let user of users) {
-      if(email === user.email) {
-        console.log("Email already registered. Try again!")
-        alert("Email already registered. Try again!")
-        isValid = false
+    for (let user of users) {
+      if (email === user.email) {
+        console.log("Email already registered. Try again!");
+        alert("Email already registered. Try again!");
+        isValid = false;
         break;
       }
     }
-    return isValid
-  }
+    return isValid;
+  };
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const response = await axios.get("http://localhost:8080/api/v1/user")
+      const response = await axios.get("http://localhost:8080/api/v1/user");
 
-      if(response.status === 200) {
-        const users = response.data
+      if (response.status === 200) {
+        const users = response.data;
 
-        if(isValidRegister(users) === true) {
-          postRegisterInfos()
-          alert("ACCOUNT CREATED!")
-          navigate("/homepage")
+        if (isValidRegister(users) === true) {
+          postRegisterInfos();
+          alert("ACCOUNT CREATED!");
+          navigate("/homepage");
         }
       }
+    } catch (error) {
+      console.log("GET ERROR: ", error);
     }
-    catch(error) {
-      console.log("GET ERROR: ", error)
-    }
-  }
+  };
 
   return (
     <div class="flex items-center justify-center min-h-screen bg-black">
@@ -87,7 +87,7 @@ export default function Register() {
             solução definitiva para a segurança da sua casa.
           </p>
           <p class="mb-4">Possui um cadastro?</p>
-          <Link to={'/'}>
+          <Link to={"/"}>
             <button class="px-4 py-2 border border-gray-500 rounded-lg hover:text-gray-300">
               Entrar
             </button>
@@ -98,10 +98,7 @@ export default function Register() {
           <p class="mb-8 text-white">Preencha seus dados</p>
           <form onSubmit={(e) => onSubmit(e)}>
             <div class="mb-4">
-              <label
-                class="block mb-2 text-sm font-bold text-white"
-                for="name"
-              >
+              <label class="block mb-2 text-sm font-bold text-white" for="name">
                 Nome
               </label>
               <input
@@ -110,7 +107,9 @@ export default function Register() {
                 id="name"
                 placeholder="Nome"
                 value={name}
-                onChange={(e) => {onNameChange(e)}}
+                onChange={(e) => {
+                  onNameChange(e);
+                }}
                 required
               />
             </div>
@@ -127,7 +126,9 @@ export default function Register() {
                 id="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => {onEmailChange(e)}}
+                onChange={(e) => {
+                  onEmailChange(e);
+                }}
               />
             </div>
             <div class="mb-4">
@@ -154,5 +155,4 @@ export default function Register() {
       </div>
     </div>
   );
-
 }

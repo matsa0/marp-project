@@ -62,7 +62,6 @@ export default function Login() {
     }
 
     return (
-        
     <div class="flex items-center justify-center min-h-screen bg-black">
         
         <div class="bg-black dark:bg-card rounded-lg shadow-lg p-16 w-full max-w-lg border border-gray-500">
@@ -122,7 +121,8 @@ export default function Login() {
             </button>
         </form>
         <label for="remember" class="text-sm font-medium text-white">
-        <Link to={'/mainscreen'}>Entrar.</Link> <Link to={'/register'}>Cadastre-se.</Link>
+        <Link to={'/homepage'}>Entrar.</Link> 
+        <Link to={'/register'}>Cadastre-se.</Link>
         </label>
         </div>
     </div>

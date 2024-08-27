@@ -13,6 +13,7 @@ public interface CenterMapper {
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "password", target = "password")
     @Mapping(source = "status", target = "status")
     @Mapping(source = "sensors", target = "sensors")
     @Mapping(source = "log", target = "log")

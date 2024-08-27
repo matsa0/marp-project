@@ -4,6 +4,7 @@ import './App.css';
 import Register from './pages/register';
 import Login from './pages/login';
 import Mainscreen from './pages/mainscreen';
+import AddCenter from './pages/addCenter';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           }/>
           <Route path="/homepage" element={
             <Mainscreen />
+          }/>
+          <Route path="/addCenter" element={
+            <AddCenter />
           }/>
         </Routes>
       </Router>
