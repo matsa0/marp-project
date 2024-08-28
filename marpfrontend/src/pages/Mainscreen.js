@@ -8,6 +8,7 @@ import axios from 'axios';
 export default function Mainscreen() {
 
     const[user, setUser] = useState(null);
+    const navigate = useNavigate("");
 
     useEffect(() => {
         const userLogged = localStorage.getItem("userLogged")
@@ -19,6 +20,11 @@ export default function Mainscreen() {
             loadCenters(userLoggedObj.id)
         }
     }, []) //dependecy list
+
+    const handleLogOut = () => {
+        localStorage.removeItem("userLogged")
+        navigate("/")
+    }
 
     const loadCenters = async (id) => {
         try {
@@ -101,7 +107,8 @@ export default function Mainscreen() {
                         </ul>
                     </nav>
 
-                    <a href="#" class="mt-auto flex gap-3 items-center text-zinc-400 hover:text-white">
+                    {/*handleLogOut its only executed when user clicks on the button(no parenthenses)*/}
+                    <a onClick={handleLogOut} href="#" class="mt-auto flex gap-3 items-center text-zinc-400 hover:text-white"> 
                         <LogOut />
                         <span className="text-lg font-medium">Log out</span>
                     </a>

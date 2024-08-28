@@ -49,9 +49,6 @@ export default function Login() {
 
                     navigate("/homepage")
                 }
-                else {
-                    alert("User doesnt exist! Create a account.")
-                }
             }
         }
         catch(error) {
