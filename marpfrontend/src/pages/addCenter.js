@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { ShieldCheck } from 'lucide-react';
@@ -8,6 +8,7 @@ export default function AddCenter() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const status = "DESARMED"
+  const[user, setUser] = useState(null)
 
   const onNameChange = (e) => {
     setName(e.target.value);
@@ -15,6 +16,15 @@ export default function AddCenter() {
   const onPasswordChange = (e) => {
     setPassword(e.target.value);
   }
+
+  useEffect(() => {
+    const userLogged = localStorage.getItem("userLogged")
+
+    if(userLogged) {
+      const userLoggedObj = JSON.parse(userLogged)
+      setUser(userLoggedObj)
+    }
+  })
 
   const centerInfos = {
     name: name,
@@ -31,7 +41,7 @@ export default function AddCenter() {
     e.preventDefault();
 
     try {
-        const response = await axios.post("http://localhost:8080/api/v1/center", centerInfos)
+        const response = await axios.post(`http://localhost:8080/api/v1/center/${user.id}/centers`, centerInfos)
         if (response.status === 201) {
             alert("Central Created!")
             console.log("POST SUCCESSFUL")

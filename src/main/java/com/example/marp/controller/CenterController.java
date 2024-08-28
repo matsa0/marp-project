@@ -48,6 +48,13 @@ public class CenterController {
         return new ResponseEntity<>(center, HttpStatus.CREATED);
     }
 
+    @PostMapping("/{userId}/centers")
+    public ResponseEntity<CenterDTO> addCenterToUser(@RequestBody Center centerObj, @PathVariable Long userId) {
+        CenterDTO center = service.addCenterToUser(centerObj, userId);
+
+        return new ResponseEntity<>(center, HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<CenterDTO> update(@RequestBody Center obj) {
         CenterDTO center = service.update(obj);
