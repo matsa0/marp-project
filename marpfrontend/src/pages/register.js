@@ -27,16 +27,15 @@ export default function Register() {
     password: password,
   };
 
-  const postRegisterInfos = async (e) => {
+  const postRegisterInfos = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/user",
-        registerInfos
-      );
-      if (response === 201) {
-        console.log("POST SUCCESSFUL");
+      const response = await axios.post("http://localhost:8080/api/v1/user", registerInfos)
+      if (response.status === 201) {
+        alert("ACCOUNT CREATED!");
+        localStorage.setItem("userLogged", JSON.stringify(response.data));
+        navigate("/homepage");
       } else {
-        console.log(response.status);
+        alert("HTTP Error: ", response.status)
       }
     } catch (error) {
       console.log("POST ERROR: ", error);
@@ -44,17 +43,12 @@ export default function Register() {
   };
 
   const isValidRegister = (users) => {
-    let isValid = true;
-
     for (let user of users) {
       if (email === user.email) {
-        console.log("Email already registered. Try again!");
-        alert("Email already registered. Try again!");
-        isValid = false;
-        break;
+        return false;
       }
+      return true;
     }
-    return isValid;
   };
 
   const onSubmit = async (e) => {
@@ -66,12 +60,16 @@ export default function Register() {
       if (response.status === 200) {
         const users = response.data;
 
-        if (isValidRegister(users) === true) {
-          postRegisterInfos();
-          alert("ACCOUNT CREATED!");
-          navigate("/homepage");
+        const userLogged = isValidRegister(users)
+
+        if(!userLogged) {
+          alert("Email already registered. Try again!");
+          return;
         }
       }
+
+      postRegisterInfos();
+
     } catch (error) {
       console.log("GET ERROR: ", error);
     }
