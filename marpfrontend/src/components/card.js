@@ -4,7 +4,6 @@ import { Trash } from 'lucide-react';
 export default function Card({center}) {
   return (
     <>
-        {/*CENTRAL CARD*/}
         <div class="bg-black border border-white border-opacity-10 p-6 rounded-lg">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">

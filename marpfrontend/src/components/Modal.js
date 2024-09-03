@@ -10,14 +10,11 @@ const Modal = ({isVisible, onClose, children}) => {
     
   return (
     <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center modal-fade-in' id="wrapper" onClick={handleClose}>
-    <div className="w-[450px] flex flex-col"> 
-        <button className="text-white text-xl place-self-end" onClick={()=> onClose()}>X
-        </button>
-    <div>{children}
-
-    </div>
-
-    </div>
+      <div className="w-[450px] flex flex-col"> 
+          <button className="text-white text-xl place-self-end" onClick={()=> onClose()}>X</button>
+          <div>{children}
+          </div>
+      </div>
     </div>
   )
 }
