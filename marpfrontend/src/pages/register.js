@@ -77,7 +77,7 @@ export default function Register() {
 
   return (
     <div class="flex items-center justify-center min-h-screen bg-black">
-      <div class="flex w-full max-w-4xl bg-white rounded-lg shadow-lg border border-gray-500">
+      <div class="flex w-full max-w-4xl rounded-lg shadow-lg border border-gray-500 border-opacity-30">
         <div class="w-1/2 p-8 bg-[#080808] text-white rounded-l-lg flex flex-col justify-center">
           <h2 class="mb-4 text-2xl font-bold">Bem Vindo ao Marp</h2>
           <p class="mb-8">
