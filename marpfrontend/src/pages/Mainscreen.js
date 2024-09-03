@@ -190,46 +190,15 @@ export default function Mainscreen() {
                 </div>
             </div> 
 
-            <Modal isVisible={showModal} onClose={() => setShowModal(false)}>   
-                <div className="bg-black dark:bg-card rounded-lg shadow-lg p-12 border border-gray-500 border-opacity-20">
-                    <div className="flex items-center justify-center mb-4">
-                        <div className="w-12 h-12 bg-white flex items-center justify-center rounded-full">
-                        <ShieldCheck />
-                        </div>
-                    </div>
-                    <form onSubmit={(e) => onSubmit(e)}>
-                        <div className="mb-4">
-                            <label htmlFor="name" className="block text-sm font-medium text-white">
-                                Nome
-                            </label>
-                            <input
-                                type="text"
-                                id="inputName"
-                                className="mt-1 block w-full border border-gray-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-gray-500"
-                                placeholder="Digite o nome da central"
-                                onChange={(e) => onNameChange(e)}
-                                value={name}
-                                required
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="password" className="block text-sm font-medium text-white">
-                                Senha
-                            </label>
-                            <input
-                                type="password"
-                                id="inputPassword"
-                                className="mt-1 block w-full border border-gray-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-gray-500"
-                                placeholder="Digite a senha da central"
-                                onChange={(e) => onPasswordChange(e)}
-                                value={password}
-                                required
-                            />
-                        </div>
-
-                        <button type="submit" className="w-full bg-white text-black p-2 rounded-md hover:bg-gray-200">Adicionar</button>
-                    </form>
-                </div>
+            <Modal 
+                isVisible={showModal} 
+                onClose={() => setShowModal(false)}
+                onSubmit={onSubmit}
+                onNameChange={onNameChange}
+                onPasswordChange={onPasswordChange}
+                name={name}
+                password={password}
+            >   
             </Modal>
         </>
     );
