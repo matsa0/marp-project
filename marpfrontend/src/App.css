@@ -1,8 +1,13 @@
-
-    .text-with-margin {
-        margin-left: 5px;
+@keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
     }
-
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
     /* Customizando a barra de rolagem */
 .custom-scrollbar::-webkit-scrollbar {
     width: 8px; /* Largura da barra de rolagem */
@@ -23,3 +28,6 @@
     background-color: #646d78; 
 }
 
+.modal-fade-in {
+    animation: modalFadeIn 0.3s ease-out;
+  }
