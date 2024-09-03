@@ -9,19 +9,38 @@ import Card from '../components/Card';
 
 
 export default function Mainscreen() {
-
-    const [user, setUser] = useState(null);
+    
     const navigate = useNavigate("");
+    const [user, setUser] = useState(null);
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const status = "DESARMED"
+    const [showModal, setShowModal] = useState(false);
+    
+    const onNameChange = (e) => {
+      setName(e.target.value);
+    }
+    const onPasswordChange = (e) => {
+      setPassword(e.target.value);
+    }
 
+    const centerInfos = {
+        name: name,
+        password: password,
+        status: status
+    };
+    
     useEffect(() => {
         const userLogged = localStorage.getItem("userLogged")
 
         if (userLogged) {
             const userLoggedObj = JSON.parse(userLogged)
-            setUser(userLoggedObj)
+            setUser(prevUser => {
+                if(JSON.stringify(prevUser) !== JSON.stringify(userLoggedObj)) {
+                    return userLoggedObj;
+                }
+                return prevUser;
+            })
 
             loadCenters(userLoggedObj.id)
         }
@@ -50,28 +69,6 @@ export default function Mainscreen() {
         }
     }
   
-    const onNameChange = (e) => {
-      setName(e.target.value);
-    }
-    const onPasswordChange = (e) => {
-      setPassword(e.target.value);
-    }
-  
-    useEffect(() => {
-      const userLogged = localStorage.getItem("userLogged")
-  
-      if(userLogged) {
-        const userLoggedObj = JSON.parse(userLogged)
-        setUser(userLoggedObj)
-      }
-    })
-  
-    const centerInfos = {
-      name: name,
-      password: password,
-      status: status
-    };
-  
     const clearInputs = () => {
       setName("")
       setPassword("")
@@ -81,20 +78,20 @@ export default function Mainscreen() {
       e.preventDefault();
   
       try {
-          const response = await axios.post(`http://localhost:8080/api/v1/center/${user.id}/centers`, centerInfos)
-          if (response.status === 201) {
-              alert("Central Created!")
-              console.log("POST SUCCESSFUL")
-              clearInputs()
-          } else {
-              alert("Status Error: ", response.status)
-              console.log(response.status)
-          }
-      } catch (error) {
-          console.log("POST ERROR: ", error)
+            const response = await axios.post(`http://localhost:8080/api/v1/center/${user.id}/centers`, centerInfos)
+            if (response.status === 201) {
+                alert("Central Created!")
+                console.log("POST SUCCESSFUL")
+                loadCenters(user.id)
+                clearInputs()
+            } else {
+                alert("Status Error: ", response.status)
+                console.log(response.status)
+            }
+        } catch (error) {
+            console.log("POST ERROR: ", error)
       }
     };
-    const [showModal, setShowModal] = useState(false);
     
     return (
         <>
@@ -166,7 +163,6 @@ export default function Mainscreen() {
                         </a>
                     </aside>
 
-
                     <main class="flex-1 p-8">
                         <header class="flex justify-between items-center mb-8">
                             <h1 class="text-3xl font-medium ">Centrais</h1>
@@ -231,12 +227,7 @@ export default function Mainscreen() {
                             />
                         </div>
 
-                        <button
-                        type="submit"
-                        className="w-full bg-white text-black p-2 rounded-md hover:bg-gray-200"
-                        >
-                        Adicionar
-                        </button>
+                        <button type="submit" className="w-full bg-white text-black p-2 rounded-md hover:bg-gray-200">Adicionar</button>
                     </form>
                 </div>
             </Modal>
