@@ -59,7 +59,7 @@ export default function Login() {
     return (
     <div class="flex items-center justify-center min-h-screen bg-black">
         
-        <div class="bg-black dark:bg-card rounded-lg shadow-lg p-16 w-full max-w-lg border border-gray-500 border-opacity-30">
+        <div class="bg-black dark:bg-card rounded-lg shadow-lg p-16 w-full max-w-lg border border-gray-500 border-opacity-20">
         <div class="flex items-center justify-center mb-4">
         <div class="w-12 h-12 bg-white flex items-center justify-center rounded-full">
             <img
