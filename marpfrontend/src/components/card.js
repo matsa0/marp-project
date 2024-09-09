@@ -1,7 +1,7 @@
 import React from 'react'
 import { Trash } from 'lucide-react';
 
-export default function Card({center}) {
+export default function Card({ center }) {
   return (
     <>
         <div class="bg-black border border-white border-opacity-10 p-6 rounded-lg">
