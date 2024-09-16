@@ -1,14 +1,31 @@
 import React from 'react'
 import { Trash } from 'lucide-react';
+import axios from 'axios';
 
 export default function Card({ center }) {
+    const removeCentral = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:8080/api/v1/center/${center.id}`)
+            if (response.status === 204) {
+                alert("Center successfully removed!")
+                window.location.reload()
+            }
+            else {
+                alert(`Status error: ${response.status}`);
+            }
+        } catch (error) {
+            console.log("Error removing center: ", error);
+            alert("An error occurred!")
+        }
+    }
+
   return (
     <>
         <div class="bg-black border border-white border-opacity-10 p-6 rounded-lg">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <h2 class="text-lg font-semibold">{center.name}</h2>
-                    <Trash className="ml-4" />
+                    <Trash onClick={removeCentral} className="ml-4" style={{cursor: 'pointer'}} />
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer ">
                     <input type="checkbox" className="sr-only peer" />
