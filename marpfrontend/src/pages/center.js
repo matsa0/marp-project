@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
-import { ShieldCheck, Calendar, LogOut, Siren } from 'lucide-react';
+import { ShieldCheck, Calendar, LogOut, Siren, CircleArrowLeft } from 'lucide-react';
 import { useState } from "react";
 import ModalAddSensor from '../components/center/ModalAddSensor';    
 import axios from 'axios';
@@ -138,7 +138,7 @@ export default function Center() {
                             </div>
                             <ul class="flex flex-col gap-2 px-5 max-h-48 overflow-y-auto custom-scrollbar">
                                 {user?.centers?.map((center) => (
-                                    <li key={center.id}>
+                                    <li key={center.id} onClick={() => navigate(`/center/${center.id}`)}>
                                         <a
                                             href="#"
                                             class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded"
@@ -181,7 +181,12 @@ export default function Center() {
 
                     <main class="flex-1 p-8">
                         <header class="flex justify-between items-center mb-8">
-                            <h1 class="text-3xl font-medium ">Sensores</h1>
+                            <div className='flex align-center'>       
+                                <span className='pr-4 cursor-pointer' onClick={() => navigate("/homepage")}>
+                                    <CircleArrowLeft width="32" height="32" />
+                                </span>
+                                <h1 class="text-3xl font-medium ">Sensores</h1> 
+                            </div>
                             <button class="bg-white text-black px-6 py-4 rounded-lg flex items-center gap-3 mt-3" onClick={() =>
                                 setShowModal(true)}>
                                 <Siren />

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { ShieldCheck, Calendar, LogOut, LayoutGrid } from 'lucide-react';
 import { useState } from "react";
 import Modal from "../components/Modal";
@@ -124,7 +124,7 @@ export default function Mainscreen() {
                             </div>
                             <ul class="flex flex-col gap-2 px-5 max-h-48 overflow-y-auto custom-scrollbar">
                                 {user?.centers?.map((center) => (
-                                    <li key={center.id}>
+                                    <li key={center.id} onClick={() => navigate(`/center/${center.id}`)}>
                                         <a
                                             href="#"
                                             class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded"
