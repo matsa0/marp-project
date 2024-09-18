@@ -1,33 +1,27 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
-import { ShieldCheck, Calendar, LogOut, LayoutGrid } from 'lucide-react';
+import { useNavigate, useParams } from "react-router-dom";
+import { ShieldCheck, Calendar, LogOut, Siren } from 'lucide-react';
 import { useState } from "react";
-import Modal from "../components/Modal";
-import '../App.css';
+import ModalAddSensor from '../components/center/ModalAddSensor';    
 import axios from 'axios';
-import Card from '../components/Card';
-import { Link } from 'react-router-dom';
+import CardSensor from '../components/center/CardSensor';
 
-
-export default function Mainscreen() {
-    
+export default function Center() {
     const navigate = useNavigate("");
     const [user, setUser] = useState(null);
     const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const status = "DESARMED"
+    const [center, setCenter] = useState(null)
+    const status = "OFF";
     const [showModal, setShowModal] = useState(false);
+    let { id } = useParams()
+    console.log("centerID: ", id)
     
     const onNameChange = (e) => {
       setName(e.target.value);
     }
-    const onPasswordChange = (e) => {
-      setPassword(e.target.value);
-    }
 
-    const centerInfos = {
+    const sensorInfos = {
         name: name,
-        password: password,
         status: status
     };
     
@@ -45,7 +39,12 @@ export default function Mainscreen() {
 
             loadCenters(userLoggedObj.id)
         }
-    }, []) //dependecy list
+
+        if(id) {
+            loadSensors(id)
+        }
+
+    }, [id]) //dependecy list
 
     const handleLogOut = () => {
         localStorage.removeItem("userLogged")
@@ -68,21 +67,37 @@ export default function Mainscreen() {
             console.log("Get Centers Error: ", error)
         }
     }
+
+    const loadSensors = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/v1/center/${id}`)
+
+            if(response.status === 200) {
+                const data = response.data
+                console.log(data)
+                setCenter(data)
+            } else {
+                console.log("Status error: ", response.status)
+            }
+        } catch(error) {
+            console.log("Get Centers Error: ", error)
+        }
+    }
   
     const clearInputs = () => {
       setName("")
-      setPassword("")
     }
   
     const onSubmit = async (e) => {
       e.preventDefault();
   
       try {
-            const response = await axios.post(`http://localhost:8080/api/v1/center/${user.id}/centers`, centerInfos)
+            const response = await axios.post(`http://localhost:8080/api/v1/sensor/${id}/sensors`, sensorInfos)
             if (response.status === 201) {
-                alert("Central Created!")
+                alert("Sensor Created!")
                 console.log("POST SUCCESSFUL")
                 loadCenters(user.id)
+                loadSensors(id)
                 clearInputs()
             } else {
                 alert("Status Error: ", response.status)
@@ -92,10 +107,9 @@ export default function Mainscreen() {
             console.log("POST ERROR: ", error)
       }
     };
-
-
     
-    return (
+  return (
+    <div>
         <>
             <div class="bg-black text-white">
                 <div class="flex min-h-screen">
@@ -167,11 +181,11 @@ export default function Mainscreen() {
 
                     <main class="flex-1 p-8">
                         <header class="flex justify-between items-center mb-8">
-                            <h1 class="text-3xl font-medium ">Centrais</h1>
+                            <h1 class="text-3xl font-medium ">Sensores</h1>
                             <button class="bg-white text-black px-6 py-4 rounded-lg flex items-center gap-3 mt-3" onClick={() =>
                                 setShowModal(true)}>
-                                <LayoutGrid />
-                                <span className="text-lg font-medium">Nova Central</span>
+                                <Siren />
+                                <span className="text-lg font-medium">Novo Sensor</span>
                             </button>
                         </header>
 
@@ -182,24 +196,25 @@ export default function Mainscreen() {
                         </div>
 
                         <div class="grid grid-cols-3 gap-6">
-                            {user?.centers.map((center) => (                          
-                                <Card key={center.id} center={center} ></Card>
+                            {center?.sensors.map((sensor) => (
+                                <>
+                                    <CardSensor key={sensor.id} sensor={sensor}></CardSensor>
+                                </>
                             ))}   
                         </div>
                     </main>
                 </div>
             </div> 
 
-            <Modal 
+            <ModalAddSensor 
                 isVisible={showModal} 
                 onClose={() => setShowModal(false)}
                 onSubmit={onSubmit}
                 onNameChange={onNameChange}
-                onPasswordChange={onPasswordChange}
                 name={name}
-                password={password}
             >   
-            </Modal>
+            </ModalAddSensor>
         </>
-    );
+    </div>
+  );
 }

@@ -1,21 +1,20 @@
 import React from 'react'
 import { Trash } from 'lucide-react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
-export default function Card({ center }) {
-    const removeCentral = async () => {
+export default function CardSensor({ sensor }) {
+    const removeSensor = async () => {
         try {
-            const response = await axios.delete(`http://localhost:8080/api/v1/center/${center.id}`)
+            const response = await axios.delete(`http://localhost:8080/api/v1/sensor/${sensor.id}`)
             if (response.status === 204) {
-                alert("Center successfully removed!")
+                alert("Sensor successfully removed!")
                 window.location.reload()
             }
             else {
                 alert(`Status error: ${response.status}`);
             }
         } catch (error) {
-            console.log("Error removing center: ", error);
+            console.log("Error removing sensor: ", error);
             alert("An error occurred!")
         }
     }
@@ -25,10 +24,8 @@ export default function Card({ center }) {
         <div class="bg-black border border-white border-opacity-10 p-6 rounded-lg cursor-pointer">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
-                    <Link to={`/center/${center.id}`}>
-                        <h2 class="text-lg font-semibold cursor-pointer">{center.name}</h2>
-                    </Link>
-                    <Trash onClick={removeCentral} className="ml-4 cursor-pointer" />
+                    <h2 class="text-lg font-semibold">{sensor.name}</h2>
+                    <Trash onClick={removeSensor} className="ml-4 cursor-pointer" />
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer ">
                     <input type="checkbox" className="sr-only peer" />

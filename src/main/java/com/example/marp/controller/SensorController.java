@@ -48,6 +48,13 @@ public class SensorController {
         return new ResponseEntity<>(sensor, HttpStatus.CREATED);
     }
 
+    @PostMapping("/{centerId}/sensors")
+    public ResponseEntity<SensorDTO> addSensorToCenter(@RequestBody Sensor obj, @PathVariable Long centerId) {
+        SensorDTO sensor = service.addSensorToCenter(obj, centerId);
+
+        return new ResponseEntity<>(sensor, HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<SensorDTO> update(@RequestBody Sensor obj) {
         SensorDTO sensor = service.update(obj);

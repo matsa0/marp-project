@@ -9,5 +9,4 @@ public class MarpApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MarpApplication.class, args);
 	}
-
 }
