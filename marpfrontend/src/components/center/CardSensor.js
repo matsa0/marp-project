@@ -21,7 +21,7 @@ export default function CardSensor({ sensor }) {
 
   return (
     <>
-        <div class="bg-black border border-white border-opacity-10 p-6 rounded-lg cursor-pointer">
+        <div class="bg-black border border-white border-opacity-10 p-6 rounded-lg">
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <h2 class="text-lg font-semibold">{sensor.name}</h2>
@@ -30,7 +30,10 @@ export default function CardSensor({ sensor }) {
                 <label className="relative inline-flex items-center cursor-pointer ">
                     <input type="checkbox" className="sr-only peer" />
                     <div
-                        class="w-11 h-6 bg-zinc-600 rounded-full peer peer-focus:ring-4 peer-focus:ring-zinc-800 dark:peer-focus:ring-zinc-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-600 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-white peer-checked:after:bg-zinc-800">
+                        class="w-11 h-6 bg-zinc-600 rounded-full peer peer-focus:ring-4 peer-focus:ring-zinc-800 dark:peer-focus:ring-zinc-800 
+                        peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] 
+                        after:left-[2px] after:bg-white after:border-zinc-600 after:border after:rounded-full after:h-5 after:w-5 after:transition-all 
+                        peer-checked:bg-white peer-checked:after:bg-zinc-800">
                     </div>
                 </label>
             </div>

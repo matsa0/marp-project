@@ -50,7 +50,7 @@ public class TestConfig implements CommandLineRunner {
         User u1 = new User(null, "Matheus", "matheus@gmail.com", "senha123", null);
 
         List<Center> centers = new ArrayList<>();
-        Center c1 =  new Center(null, "Primeiro andar", "central1", CentralStatus.ARMED, u1, new ArrayList<>(), new ArrayList<>(), null);
+        Center c1 =  new Center(null, "Primeiro andar", "central1", CentralStatus.DESARMED, u1, new ArrayList<>(), new ArrayList<>(), null);
         centers.add(c1);
         
         u1.setCenters(centers); 

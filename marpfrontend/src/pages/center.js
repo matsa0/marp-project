@@ -14,7 +14,6 @@ export default function Center() {
     const status = "OFF";
     const [showModal, setShowModal] = useState(false);
     let { id } = useParams()
-    console.log("centerID: ", id)
     
     const onNameChange = (e) => {
       setName(e.target.value);
