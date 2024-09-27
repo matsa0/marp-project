@@ -1,10 +1,13 @@
 package com.example.marp.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.marp.model.enums.CentralStatus;
+import com.example.marp.observer.Observer;
+import com.example.marp.observer.Subject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -20,8 +23,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "center")
-public class Center implements Serializable {
+public class Center implements Serializable, Subject {
     private static final long serialVersionUID = 1L;
+    private transient List<Observer> observers = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +70,24 @@ public class Center implements Serializable {
         this.events = events;
         this.log = log;
     }
+
+    @Override
+    public void addObserver(Event event) {
+        events.add(event);
+    }
+
+    @Override
+    public void notifyObservers(String eventName) {
+        Event event = new Event();
+        event.setName(eventName);
+        event.setDate(LocalDateTime.now());
+        event.setCenter(this);
+        events.add(event);
+
+        for(Observer observer : observers) {
+            observer.update(eventName, this);
+        }
+    }
     
     public Long getId() {
         return id;
@@ -90,6 +112,13 @@ public class Center implements Serializable {
     }
     public void setStatus(CentralStatus status) {
         this.status = status;
+
+        if(this.status == CentralStatus.ARMED) {
+            notifyObservers("Armada");
+        }
+        if(this.status == CentralStatus.DESARMED) {
+            notifyObservers("Desarmada");
+        }
     }
     @JsonIgnore
     public User getUser() {
@@ -104,7 +133,6 @@ public class Center implements Serializable {
     public void setSensors(List<Sensor> sensors) {
         this.sensors = sensors;
     }
-    @JsonIgnore
     public List<Event> getEvents() {
         return events;
     }

@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ShieldCheck, Calendar, LogOut, LayoutGrid } from 'lucide-react';
 import { useState } from "react";
 import Modal from "../components/Modal";
 import '../App.css';
 import axios from 'axios';
 import Card from '../components/Card';
-import { Link } from 'react-router-dom';
-
 
 export default function Mainscreen() {
     

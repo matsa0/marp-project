@@ -3,6 +3,11 @@ package com.example.marp.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.marp.observer.Observer;
+import com.example.marp.repository.EventRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,8 +19,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "event")
-public class Event implements Serializable {
+public class Event implements Serializable, Observer  {
     private static final long serialVersionUID = 1L;
+    @Autowired
+    private transient EventRepository repository; //don't serialize object
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +60,22 @@ public class Event implements Serializable {
         this.date = date;
     }
 
+    @Override
+    public void update(String eventName, Object object) {
+        this.name = eventName;
+        this.date = LocalDateTime.now();
+
+        if(object instanceof Center) {
+            this.center = (Center) object;
+            this.center.getEvents().add(this);
+        }
+        else if(object instanceof Sensor) {
+            this.sensor = (Sensor) object;
+            this.sensor.getEvents().add(this);
+        }
+        repository.save(this);
+    }
+
     public Long getId() {
         return id;
     }
@@ -71,18 +94,21 @@ public class Event implements Serializable {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+    @JsonIgnore
     public Center getCenter() {
         return center;
     }
     public void setCenter(Center center) {
         this.center = center;
     }
+    @JsonIgnore
     public Sensor getSensor() {
         return sensor;
     }
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
+    @JsonIgnore
     public Log getLog() {
         return log;
     }

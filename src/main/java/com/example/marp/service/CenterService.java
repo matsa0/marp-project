@@ -46,20 +46,20 @@ public class CenterService {
     public CenterDTO addCenterToUser(Center centerObj, Long userId) {
         try {
             Optional<User> optUser = userRepository.findById(userId);
-            if(optUser.isPresent()) {
+    
+            if (optUser.isPresent()) {
                 User u1 = optUser.get();
-                
+    
                 centerObj.setUser(u1);
-                u1.getCenters().add(centerObj);
+                u1.getCenters().add(centerObj); 
 
                 repository.save(centerObj);
+    
                 return CenterMapper.INSTANCE.centerToCenterDTO(centerObj);
-            }
-            else {
+            } else {
                 throw new ResourceNotFoundException(userId);
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw new ResourceNotFoundException(centerObj.getId());
         }
     }

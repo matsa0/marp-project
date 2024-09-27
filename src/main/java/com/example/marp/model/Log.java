@@ -23,6 +23,9 @@ public class Log {
     @OneToOne(mappedBy = "log")
     private Center center;
 
+    @OneToOne(mappedBy = "log")
+    private Sensor sensor;
+
     @OneToMany(mappedBy = "log")
     private List<Event> events = new ArrayList<>();
 

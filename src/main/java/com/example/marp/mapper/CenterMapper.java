@@ -16,6 +16,6 @@ public interface CenterMapper {
     @Mapping(source = "password", target = "password")
     @Mapping(source = "status", target = "status")
     @Mapping(source = "sensors", target = "sensors")
-    @Mapping(source = "log", target = "log")
+    @Mapping(source = "events", target = "events")
     public CenterDTO centerToCenterDTO(Center center);
 }

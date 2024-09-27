@@ -14,5 +14,6 @@ public interface SensorMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
     @Mapping(source = "status", target = "status")
+    @Mapping(source = "events", target = "events")
     public SensorDTO sensorToSensorDTO(Sensor sensor);
 }
