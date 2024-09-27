@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Trash } from 'lucide-react';
 import axios from 'axios';
 import { useState } from 'react';
 
 export default function CardSensor({ sensor }) {
     const[status, setStatus] = useState(sensor.status);
+/*     const[events, setEvents] = useState([]); */
+
+    useEffect(() => {
+        setStatus(sensor.status)
+    }, [sensor.status])
     
     const removeSensor = async () => {
         try {
@@ -43,6 +48,12 @@ export default function CardSensor({ sensor }) {
         }
     }
 
+/*     const catchEvents = async () => {
+        for(let events of sensor.events) {
+            setEvents(events);
+        }
+    } */
+
   return (
     <>
         <div class="bg-black border border-white border-opacity-10 p-6 rounded-lg">
@@ -52,7 +63,7 @@ export default function CardSensor({ sensor }) {
                     <Trash onClick={removeSensor} className="ml-4 cursor-pointer" />
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer ">
-                    <input type="checkbox" className="sr-only peer" />
+                    <input type="checkbox" className="sr-only peer" checked={status === "ON"} readOnly />
                     <div
                         class="w-11 h-6 bg-zinc-600 rounded-full peer peer-focus:ring-4 peer-focus:ring-zinc-800 dark:peer-focus:ring-zinc-800 
                         peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] 
@@ -64,18 +75,21 @@ export default function CardSensor({ sensor }) {
             </div>
             
             <div class="flex flex-col mt-4">
-                <div class="px-3 py-2 flex justify-between items-center mb-2 rounded bg-zinc-900">
-                    <p class="text-white">Acionado</p>
-                    <p class="text-zinc-400 text-sm ml-auto">21:00 • 21 de Janeiro, 2021</p>
-                </div>
-                <div class="px-3 py-2 flex justify-between items-center mb-2 rounded">
-                    <p class="text-green-500">Ativado</p>
-                    <p class="text-zinc-400 text-sm ml-auto">21:00 • 21 de Janeiro, 2021</p>
-                </div>
-                <div class="px-3 py-2 flex justify-between items-center mb-2 rounded bg-zinc-900">
-                    <p class="text-red-500">Desligado</p>
-                    <p class="text-zinc-400 text-sm ml-auto">21:00 • 21 de Janeiro, 2021</p>
-                </div>
+                {sensor?.events?.slice(-3).map((event) => (
+                    <div key={event.id} class="px-3 py-2 flex justify-between items-center mb-2 rounded bg-zinc-900">
+                    {event.name === "Ativado" ?
+                    <>
+                        <p class="text-green-500">{event.name}</p>
+                        <p class="text-zinc-400 text-sm ml-auto">{event.date}</p>              
+                    </>
+                    :
+                    <>
+                        <p class="text-red-500">{event.name}</p>
+                        <p class="text-zinc-400 text-sm ml-auto">{event.date}</p>
+                    </>
+                    }
+                    </div>
+                ))}
             </div>
         </div>  
     </>

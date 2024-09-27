@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.marp.observer.Observer;
 import com.example.marp.repository.EventRepository;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -23,24 +24,27 @@ public class Event implements Serializable, Observer  {
     private static final long serialVersionUID = 1L;
     @Autowired
     private transient EventRepository repository; //don't serialize object
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private LocalDateTime date;
-
+    
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime date = LocalDateTime.now();
+    
     @ManyToOne
     @JoinColumn(name = "center_id")
     private Center center;
-
+    
     @ManyToOne
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
-
+    
     @ManyToOne
     @JoinColumn(name = "log_id")
     private Log log;
+
 
     public Event(Long id, String name, LocalDateTime date, Center center, Sensor sensor, Log log) {
         this.id = id;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.marp.dto.CenterDTO;
+import com.example.marp.dto.EventDTO;
 import com.example.marp.model.Center;
 import com.example.marp.service.CenterService;
 
@@ -39,6 +40,13 @@ public class CenterController {
         List<CenterDTO> centers = service.findAll();
 
         return ResponseEntity.ok().body(centers);
+    }
+
+    @GetMapping("/{id}/events")
+    public ResponseEntity<List<EventDTO>> findEvents(@PathVariable Long id) {
+        List<EventDTO> events = service.findEvents(id);
+
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     @PostMapping

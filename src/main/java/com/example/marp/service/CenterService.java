@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.marp.dto.CenterDTO;
+import com.example.marp.dto.EventDTO;
 import com.example.marp.exception.ResourceNotFoundException;
 import com.example.marp.mapper.CenterMapper;
+import com.example.marp.mapper.EventMapper;
 import com.example.marp.model.Center;
+import com.example.marp.model.Event;
 import com.example.marp.model.User;
 import com.example.marp.repository.CenterRepository;
 import com.example.marp.repository.UserRepository;
@@ -34,6 +37,17 @@ public class CenterService {
     public List<CenterDTO> findAll() {
         return repository.findAll().stream()
         .map(CenterMapper.INSTANCE::centerToCenterDTO)
+        .collect(Collectors.toList());
+    }
+
+    public List<EventDTO> findEvents(Long id) {
+        Center center = repository.findById(id).orElseThrow(
+            () -> new ResourceNotFoundException(id));
+
+        List<Event> events = center.getEvents();
+
+        return events.stream()
+        .map(EventMapper.INSTANCE::eventToEventDTO)
         .collect(Collectors.toList());
     }
 
