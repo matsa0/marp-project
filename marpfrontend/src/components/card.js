@@ -39,7 +39,7 @@ export default function Card({ center }) {
             if(response.status === 200) {
                 setStatus(newStatus)
             }
-            console.log("Status atualizado, status: ", status)
+            console.log("Status de central atualizado, status: ", status)
         } catch(error) {
             alert("Undefined error!")
             console.log("ERROR: ", error)
