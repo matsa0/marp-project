@@ -70,6 +70,13 @@ public class CenterController {
         return new ResponseEntity<>(center, HttpStatus.OK);
     }
 
+    @PutMapping("/{id}/changeSensorsStatus")
+    public ResponseEntity<Void> updateSensorsStatus(@PathVariable("id") Long centerId) {
+        service.deactivateSensors(centerId);
+
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         service.delete(id);

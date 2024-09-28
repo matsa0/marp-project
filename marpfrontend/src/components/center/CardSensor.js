@@ -5,10 +5,11 @@ import { useState } from 'react';
 
 export default function CardSensor({ sensor }) {
     const[status, setStatus] = useState(sensor.status);
-/*     const[events, setEvents] = useState([]); */
+    const[events, setEvents] = useState([]); 
 
     useEffect(() => {
         setStatus(sensor.status)
+        getEvents()
     }, [sensor.status])
     
     const removeSensor = async () => {
@@ -39,6 +40,7 @@ export default function CardSensor({ sensor }) {
 
             if(response.status === 200) {
                 setStatus(newStatus);
+                getEvents()
             }
             console.log("Status de sensor atualizado, status: ", status)
         }   
@@ -48,11 +50,18 @@ export default function CardSensor({ sensor }) {
         }
     }
 
-/*     const catchEvents = async () => {
-        for(let events of sensor.events) {
-            setEvents(events);
+    const getEvents = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/v1/sensor/${sensor.id}/events`)
+
+            if(response.status === 200) {
+                setEvents(response.data)
+            }
+        } catch(error) {
+            alert("Undefined error!")
+            console.log("ERROR GETTING SENSOR EVENTS: ", error)
         }
-    } */
+    } 
 
   return (
     <>
@@ -75,7 +84,7 @@ export default function CardSensor({ sensor }) {
             </div>
             
             <div class="flex flex-col mt-4">
-                {sensor?.events?.slice(-3).map((event) => (
+                {events?.slice(-3).map((event) => (
                     <div key={event.id} class="px-3 py-2 flex justify-between items-center mb-2 rounded bg-zinc-900">
                     {event.name === "Ativado" ?
                     <>

@@ -14,7 +14,9 @@ import com.example.marp.mapper.CenterMapper;
 import com.example.marp.mapper.EventMapper;
 import com.example.marp.model.Center;
 import com.example.marp.model.Event;
+import com.example.marp.model.Sensor;
 import com.example.marp.model.User;
+import com.example.marp.model.enums.SensorStatus;
 import com.example.marp.repository.CenterRepository;
 import com.example.marp.repository.UserRepository;
 
@@ -89,6 +91,16 @@ public class CenterService {
         repository.save(update);
 
         return CenterMapper.INSTANCE.centerToCenterDTO(update);
+    }
+
+    public void deactivateSensors(Long centerId) {
+        Center center = repository.findById(centerId)
+        .orElseThrow(() -> new ResourceNotFoundException(centerId));
+
+        for(Sensor sensor : center.getSensors()) {
+            sensor.setStatus(SensorStatus.OFF);
+        }
+        repository.save(center);
     }
 
     public void delete(Long id) {

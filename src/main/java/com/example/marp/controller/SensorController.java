@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.marp.dto.EventDTO;
 import com.example.marp.dto.SensorDTO;
 import com.example.marp.model.Sensor;
 import com.example.marp.service.SensorService;
@@ -39,6 +40,13 @@ public class SensorController {
         List<SensorDTO> sensors = service.findAll();
 
         return ResponseEntity.ok().body(sensors);
+    }
+
+    @GetMapping("/{id}/events")
+    public ResponseEntity<List<EventDTO>> findEvents(@PathVariable Long id) {
+        List<EventDTO> events = service.findEvents(id);
+
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     @PostMapping

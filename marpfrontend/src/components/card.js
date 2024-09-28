@@ -28,6 +28,8 @@ export default function Card({ center }) {
         }
     }
 
+
+
     const changeCenterStatus = async () => {
         try {
             let newStatus = status === "DESARMED" ? "ARMED" : "DESARMED"; //ternary condition
@@ -43,6 +45,14 @@ export default function Card({ center }) {
             
             if(response.status === 200) {
                 setStatus(newStatus);
+
+                if(newStatus === "DESARMED") {
+                    const responseStatus = await axios.put(`http://localhost:8080/api/v1/center/${center.id}/changeSensorsStatus`)
+                
+                    if(responseStatus.status !== 200) {
+                        console.log("Error: ", response.status)
+                    }
+                }
                 getEvents()
             }
         } catch(error) {
