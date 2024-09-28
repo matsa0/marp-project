@@ -18,7 +18,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -45,9 +44,6 @@ public class Center implements Serializable, Subject {
     @OneToMany(mappedBy = "center", cascade = CascadeType.ALL)
     private List<Event> events = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "log_id")
-    private Log log;
 
     public Center() {
     }
@@ -60,7 +56,7 @@ public class Center implements Serializable, Subject {
     }
 
     public Center(Long id, String name, String password, CentralStatus status, User user, List<Sensor> sensors,
-    List<Event> events, Log log) {
+    List<Event> events) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -68,7 +64,6 @@ public class Center implements Serializable, Subject {
         this.user = user;
         this.sensors = sensors;
         this.events = events;
-        this.log = log;
     }
 
     @Override
@@ -138,12 +133,6 @@ public class Center implements Serializable, Subject {
     }
     public void setEvents(List<Event> events) {
         this.events = events;
-    }
-    public Log getLog() {
-        return log;
-    }
-    public void setLog(Log log) {
-        this.log = log;
     }
 
     @Override

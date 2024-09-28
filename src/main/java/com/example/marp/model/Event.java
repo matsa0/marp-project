@@ -40,19 +40,13 @@ public class Event implements Serializable, Observer  {
     @ManyToOne
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
-    
-    @ManyToOne
-    @JoinColumn(name = "log_id")
-    private Log log;
 
-
-    public Event(Long id, String name, LocalDateTime date, Center center, Sensor sensor, Log log) {
+    public Event(Long id, String name, LocalDateTime date, Center center, Sensor sensor) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.center = center;
         this.sensor = sensor;
-        this.log = log;
     }
 
     public Event() {
@@ -111,13 +105,6 @@ public class Event implements Serializable, Observer  {
     }
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
-    }
-    @JsonIgnore
-    public Log getLog() {
-        return log;
-    }
-    public void setLog(Log log) {
-        this.log = log;
     }
 
     @Override

@@ -17,7 +17,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -39,10 +38,6 @@ public class Sensor implements Serializable {
 
     @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL)
     private List<Event> events = new ArrayList<>();
-
-    @OneToOne
-    @JoinColumn(name = "log_id")
-    private Log log;
 
     public Sensor(Long id, String name, SensorStatus status, Center center, List<Event> events) {
         this.id = id;
