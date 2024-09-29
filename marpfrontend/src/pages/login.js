@@ -49,6 +49,10 @@ export default function Login() {
 
                     navigate("/homepage")
                 }
+                else {
+                    console.log("User not found! Try again.")
+                    alert("User not found! Try again.")
+                }
             }
         }
         catch(error) {
