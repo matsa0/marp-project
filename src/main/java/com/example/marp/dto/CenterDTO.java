@@ -16,5 +16,6 @@ public record CenterDTO(
     List<Sensor> sensors,
     List<Event> events
 ) {
+   
     
 }
