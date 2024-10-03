@@ -1,11 +1,42 @@
-# Marp
+<h1 align="center">
+    <img src="./marpLogo.png" />
+    <p style="font-size: 15px;">
+        O mais novo sistema de gerenciamento de alarmes residenciais, e a solução definitiva para a segurança da sua casa.
+    </p>
+</h1>
 
-## Descrição do projeto
+## ✍️Descrição do projeto
+Este projeto visa o desenvolvimento de um sistema web para monitoramento de centrais de alarme residenciais. O sistema permite que o usuário gerencie várias centrais, cada uma controlando múltiplos sensores. As centrais e sensores geram eventos de segurança registrados com data e hora. O sistema oferece uma visão centralizada para monitorar e gerenciar essas  entidades, promovendo segurança e automação residencial.
 
 ### Modelo Entidade Relacionamento
+<img src="./Marp.drawio.png"/>
 
-## Funcionalidades
+## 📃Requisitos do sistema
+### ▶ Requisitos Funcionais
+<img src="./rf-marp.png"/>
 
-## Tecnologias usadas
+### ▶ Requisitos Não Funcionais
+<img src="./rnf-marp.png"/>
 
-## Como rodar o projeto
+
+## 📌Tecnologias usadas
+- Spring Boot
+- React
+- HTML
+- CSS
+- Tailwind
+
+## 🗂️Como rodar o projeto
+```bash
+    #Run Spring Boot aplication
+    $ mvn clean install
+    $ mvn spring-boot:run
+```
+Ou vá até o diretório `src/main/java/com/example/marp/MarpApplication.java` e execute o projeto em sua IDE.
+
+```bash
+    #Run React aplication
+    $ cd marpfrontend
+    $ npm start
+
+```
