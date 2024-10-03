@@ -98,7 +98,6 @@ export default function Mainscreen() {
             <div class="bg-black text-white">
                 <div class="flex min-h-screen">
                     <aside class="w-96 bg-neutral-950 p-12 flex flex-col gap-8">
-
                         <div class="flex items-center gap-3">
                             <img
                                 aria-hidden="true"
@@ -134,28 +133,6 @@ export default function Mainscreen() {
                             </ul>
                         </nav>
 
-                        <hr class="opacity-10" />
-
-                        <nav>
-                            <div class="flex mb-8 gap-3 items-center text-white">
-                                <Calendar />
-                                <span className="text-xl font-medium">
-                                    Logs
-                                </span>
-                            </div>
-                            <ul class="flex flex-col gap-2 px-5 max-h-48 overflow-y-auto custom-scrollbar">
-                                <li>
-                                    <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Diário</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Semanal</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Mensal</a>
-                                </li>
-                            </ul>
-                        </nav>
-
                         {/*handleLogOut its only executed when user clicks on the button(no parenthenses)*/}
                         <a onClick={handleLogOut} href="#" class="mt-auto flex gap-3 items-center text-zinc-400 hover:text-white">
                             <LogOut />
@@ -165,19 +142,13 @@ export default function Mainscreen() {
 
                     <main class="flex-1 p-8">
                         <header class="flex justify-between items-center mb-8">
-                            <h1 class="text-3xl font-medium ">Centrais</h1>
+                            <h1 class="text-4xl font-medium">Centrais</h1>
                             <button class="bg-white text-black px-6 py-4 rounded-lg flex items-center gap-3 mt-3" onClick={() =>
                                 setShowModal(true)}>
                                 <LayoutGrid />
                                 <span className="text-lg font-medium">Nova Central</span>
                             </button>
                         </header>
-
-                        <div class="mb-8">
-                            <button class=" text-zinc-400 px-4 py-2 rounded hover:bg-neutral-950 hover:text-white">Todos</button>
-                            <button class=" text-zinc-400 px-4 py-2 rounded hover:bg-neutral-950 hover:text-white">Ativos</button>
-                            <button class=" text-zinc-400 px-4 py-2 rounded hover:bg-neutral-950 hover:text-white">Desativos</button>
-                        </div>
 
                         <div class="grid grid-cols-3 gap-6">
                             {user?.centers.map((center) => (                          

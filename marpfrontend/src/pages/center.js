@@ -149,28 +149,6 @@ export default function Center() {
                             </ul>
                         </nav>
 
-                        <hr class="opacity-10" />
-
-                        <nav>
-                            <div class="flex mb-8 gap-3 items-center text-white">
-                                <Calendar />
-                                <span className="text-xl font-medium">
-                                    Logs
-                                </span>
-                            </div>
-                            <ul class="flex flex-col gap-2 px-5 max-h-48 overflow-y-auto custom-scrollbar">
-                                <li>
-                                    <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Diário</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Semanal</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block text-zinc-400 hover:text-white hover:bg-zinc-800 px-3 py-2 rounded">Mensal</a>
-                                </li>
-                            </ul>
-                        </nav>
-
                         {/*handleLogOut its only executed when user clicks on the button(no parenthenses)*/}
                         <a onClick={handleLogOut} href="#" class="mt-auto flex gap-3 items-center text-zinc-400 hover:text-white">
                             <LogOut />
@@ -182,9 +160,9 @@ export default function Center() {
                         <header class="flex justify-between items-center mb-8">
                             <div className='flex align-center'>       
                                 <span className='pr-4 cursor-pointer' onClick={() => navigate("/homepage")}>
-                                    <CircleArrowLeft width="32" height="32" />
+                                    <CircleArrowLeft width="32" height="42" />
                                 </span>
-                                <h1 class="text-3xl font-medium ">Sensores</h1> 
+                                <h1 class="text-4xl font-medium ">Sensores</h1> 
                             </div>
                             <button class="bg-white text-black px-6 py-4 rounded-lg flex items-center gap-3 mt-3" onClick={() =>
                                 setShowModal(true)}>
@@ -192,12 +170,6 @@ export default function Center() {
                                 <span className="text-lg font-medium">Novo Sensor</span>
                             </button>
                         </header>
-
-                        <div class="mb-8">
-                            <button class=" text-zinc-400 px-4 py-2 rounded hover:bg-neutral-950 hover:text-white">Todos</button>
-                            <button class=" text-zinc-400 px-4 py-2 rounded hover:bg-neutral-950 hover:text-white">Ativos</button>
-                            <button class=" text-zinc-400 px-4 py-2 rounded hover:bg-neutral-950 hover:text-white">Desativos</button>
-                        </div>
 
                         <div class="grid grid-cols-3 gap-6">
                             {center?.sensors.map((sensor) => (
