@@ -93,13 +93,13 @@ export default function Center() {
       try {
             const response = await axios.post(`http://localhost:8080/api/v1/sensor/${id}/sensors`, sensorInfos)
             if (response.status === 201) {
-                alert("Sensor Created!")
+                alert("Sensor criado!")
                 console.log("POST SUCCESSFUL")
                 loadCenters(user.id)
                 loadSensors(id)
                 clearInputs()
             } else {
-                alert("Status Error: ", response.status)
+                alert("Erro de status: ", response.status)
                 console.log(response.status)
             }
         } catch (error) {

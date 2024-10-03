@@ -24,7 +24,7 @@ export default function Login() {
             }
             if(email === user.email && password !== user.password) {
                 console.log("Incorrect Password! Try again.")
-                alert("Incorrect Password! Try again.")
+                alert("Senha incorreta! Tente novamente.")
                 return null;
             }
         }
@@ -43,7 +43,7 @@ export default function Login() {
 
                 if(userLogged) {
                     console.log("Succesful Login!")
-                    alert("Successful Login!")
+                    alert("Login realizado com sucesso!")
 
                     localStorage.setItem("userLogged", JSON.stringify(userLogged)) //stores the object userLogged converted into string in localStorage
 
@@ -51,7 +51,7 @@ export default function Login() {
                 }
                 else {
                     console.log("User not found! Try again.")
-                    alert("User not found! Try again.")
+                    alert("Usuário não encontrado! Tente novamente.")
                 }
             }
         }

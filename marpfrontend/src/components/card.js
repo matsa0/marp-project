@@ -16,7 +16,7 @@ export default function Card({ center }) {
         try {
             const response = await axios.delete(`http://localhost:8080/api/v1/center/${center.id}`)
             if (response.status === 204) {
-                alert("Center successfully removed!")
+                alert("Central removida com sucesso!")
                 window.location.reload()
             }
             else {
@@ -24,7 +24,7 @@ export default function Card({ center }) {
             }
         } catch (error) {
             console.log("Error removing center: ", error);
-            alert("An error occurred!")
+            alert("Um erro inesperado aconteceu!")
         }
     }
 
@@ -56,7 +56,7 @@ export default function Card({ center }) {
                 getEvents()
             }
         } catch(error) {
-            alert("Undefined error!")
+            alert("Erro indefinido!")
             console.log("ERROR: ", error)
         }
     }

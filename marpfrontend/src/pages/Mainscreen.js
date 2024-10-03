@@ -78,12 +78,12 @@ export default function Mainscreen() {
       try {
             const response = await axios.post(`http://localhost:8080/api/v1/center/${user.id}/centers`, centerInfos)
             if (response.status === 201) {
-                alert("Central Created!")
+                alert("Central criada!")
                 console.log("POST SUCCESSFUL")
                 loadCenters(user.id)
                 clearInputs()
             } else {
-                alert("Status Error: ", response.status)
+                alert("Erro de Status: ", response.status)
                 console.log(response.status)
             }
         } catch (error) {

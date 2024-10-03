@@ -31,11 +31,11 @@ export default function Register() {
     try {
       const response = await axios.post("http://localhost:8080/api/v1/user", registerInfos)
       if (response.status === 201) {
-        alert("ACCOUNT CREATED!");
+        alert("Cadastro realizado com sucesso!");
         localStorage.setItem("userLogged", JSON.stringify(response.data));
         navigate("/homepage");
       } else {
-        alert("HTTP Error: ", response.status)
+        alert("Erro de status: ", response.status)
       }
     } catch (error) {
       console.log("POST ERROR: ", error);
@@ -63,7 +63,7 @@ export default function Register() {
         const userLogged = isValidRegister(users)
 
         if(!userLogged) {
-          alert("Email already registered. Try again!");
+          alert("Email já cadastrado! Tente novamente.");
           return;
         }
       }
